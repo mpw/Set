@@ -1,5 +1,12 @@
 //  Copyright (c) 2014 Rob Rix. All rights reserved.
 
+operator infix ∪ {
+}
+
+operator infix ∪= {
+}
+
+
 /// A set of unique elements.
 struct Set<Element : Hashable> {
 	var _dictionary: Dictionary<Element, Unit> = [:]
@@ -68,16 +75,17 @@ extension Set {
 }
 
 
-/// Creates and returns the union of \c set and \c sequence.
-func + <S : Sequence> (set: Set<S.GeneratorType.Element>, sequence: S) -> Set<S.GeneratorType.Element> {
-	var union = Set(set)
-	union += sequence
-	return union
+
+
+func ∪ <S : Sequence> (set: Set<S.GeneratorType.Element>, sequence: S) -> Set<S.GeneratorType.Element> {
+    var union = Set(set)
+    union ∪= sequence
+    return union
 }
 
 
 /// Extends /c set with the elements of /c sequence.
-@assignment func += <S : Sequence> (inout set: Set<S.GeneratorType.Element>, sequence: S) {
+@assignment func ∪= <S : Sequence> (inout set: Set<S.GeneratorType.Element>, sequence: S) {
 	set.extend(sequence)
 }
 
